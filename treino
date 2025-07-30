@@ -1,0 +1,71 @@
+def verificar_op(pergunta,min,max):
+    x = int(input(pergunta))
+    while (x < min) or (x > max):
+        x = int(input(pergunta))
+    return x
+
+
+def existeArquivo(arquivo):
+    try:
+        a = open(arquivo)
+        a.close
+    except FileNotFoundError:
+        return False
+    else:
+        return True
+
+def criarArquivo(nomeArquivo):
+    try:
+        a = open(nomeArquivo, 'wt')
+        a.close
+    except:
+        print('nao foi possivel criar arquivo')
+    else:
+        print(f'arquivo {nomeArquivo} criado com sucesso')
+
+def criarUsuario(arquivo,nomeUsuario,sobreNome):
+    try:
+        a =open(arquivo, 'at')
+    except:
+        print('algum erro ocorrido\nnao pode ser criado o usuario')
+    else:
+        a.write(f'usario:{nomeUsuario} {sobreNome}.\n')
+    finally:
+        a.close()
+
+def listaUsuarios(arquivo):
+    try:
+        a = open(arquivo, 'rt')
+    except:
+        print('nao foi possivel lista os usuarios existentes')
+    else:
+        print(a.read())
+    finally:
+        a.close
+
+
+
+arquivo = 'loginUsario.txt'
+if existeArquivo(arquivo):
+    print('arquivo existente..')
+else:
+    print('arquivo nao existente...')
+    criarArquivo(arquivo)
+while True:
+    print('-----menu-----')
+    print('1-cria login')
+    print('2-ver logins ja exitentes')
+    print('3-sair do sistema')
+
+    op = verificar_op('qual opcao voçe quer fazer: ', 1,3)
+    if op == 1:
+        nomeUsuario = input('escreva o nome do usuario: ')
+        sobreNome = input('escreva o sobrenome do usuario: ')
+        criarUsuario(arquivo,nomeUsuario,sobreNome)
+
+    elif op == 2:
+        listaUsuarios(arquivo)
+
+    elif op == 3:
+        print('encerrando o programa...')
+        break
